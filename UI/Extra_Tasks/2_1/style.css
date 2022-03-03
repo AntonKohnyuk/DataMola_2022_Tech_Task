@@ -1,0 +1,108 @@
+html,body{
+width: 100%;
+height: 100%;
+position: relative;
+margin: 0;
+padding: 0;
+background-color: rgb(235, 235, 235);
+}
+
+section.modal-window
+{
+
+    background-color: rgba(88, 88, 88, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+section.window
+{
+    opacity: 1;
+    background-color: white;
+    border-radius: 0.25rem;
+    color: black;
+    width: 30%;
+    height: 30%;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+}
+div.top
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iconify
+{
+    width: 2.4rem;
+    height: 2.4rem;
+}
+
+.iconify:hover, button:hover
+{
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+button
+{
+    padding: 1rem 2rem;
+    border: 0;
+    font-weight: 600;
+    margin: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.close-button
+{
+    background-color: grey;
+    color: white;
+}
+
+.save-changes
+{
+    background-color:rgb(49, 160, 204);
+    color: white;
+}
+
+section.buttons
+{
+    display: flex;
+    justify-content: right;
+}
+
+p.blue-text
+{
+    color: rgb(79, 190, 255);
+}
+
+.red-text
+{
+    color: rgb(247, 35, 35);
+}
+.bottom
+{
+
+    position: absolute;
+    background-color: white;
+    margin: 1rem 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    color: black;
+}
+
+hr{
+    width: 100%;
+    background-color: lightgrey;
+}
