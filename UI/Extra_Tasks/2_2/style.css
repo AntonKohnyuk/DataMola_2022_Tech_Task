@@ -1,0 +1,157 @@
+
+:root{
+--default-offset: 1rem;
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(179, 179, 179);
+}
+
+.mainSection{
+    padding: 0.5rem 1rem;
+    max-width: 1080px;
+    width: 100%;
+}
+
+.aviaTicket{
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 6px 4px -4px #6A6666;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0.5rem 1rem;
+    position: relative;
+    
+}
+
+.cost{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.TimeBig{
+    font-size: 2.5rem;
+}
+
+.choose{
+    border: 0;
+    box-shadow: 0 6px 4px -4px #6A6666;
+    border-radius: 0.3rem;
+    background-color: rgb(243, 86, 29);
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: bolder;
+    padding: 0.75rem 1.5rem;
+}
+
+.leftPart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--default-offset);
+}
+
+.mainPart{
+    display: flex;
+    flex-direction: column;
+    padding: var(--default-offset);
+}
+
+.upPart{
+    padding: var(--default-offset);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+button:hover,.fly:hover,span.button:hover{
+    opacity: 0.7;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.fly{
+    border: none;
+    background-color: rgb(148, 148, 148);
+    border-radius: 0.2rem;
+    height: 0.3rem;
+}
+
+.flyPart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: var(--default-offset);
+}
+.comp{
+    font-size: 2.5rem;
+    color: rgb(61, 61, 226);
+}
+.topPart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--default-offset);
+}
+
+.lineV{
+    border: none;
+    background-color: rgb(148, 148, 148);
+    width: 0.1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.p{
+    width: 70%;
+}
+
+.plane{
+    width: 70%;
+}
+
+.downPart{
+    color: rgb(6, 6, 167);
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.lineH{
+    border: none;
+    background-color: rgb(148, 148, 148);
+    margin: 0;
+    padding: 0;
+    height: 0.1rem;
+}
+.padding{
+    padding: var(--default-offset);
+}
+
+.topMes {
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    max-width: 350px;
+    background-color: rgb(39, 189, 39);
+    color: #ffffff;
+    font-weight: bold;
+    padding: 0.1rem 0.2rem;
+    border-radius: 1rem;
+}
