@@ -8,11 +8,11 @@ class Node {
 class List {
   constructor(value) {
     this.head = new Node(value);
-    this.length = 1;
+    this._length = 1;
   }
 
-  addNode(value = this.length + 1, position = this.length + 1) {
-    if (position < 1 || position > this.length + 1) {
+  addNode(value = this._length + 1, position = this._length + 1) {
+    if (position < 1 || position > this._length + 1) {
       return false;
     }
 
@@ -22,7 +22,7 @@ class List {
     if (position === 1) {
       newNode.next = this.head;
       this.head = newNode;
-      this.length++;
+      this._length++;
       return true;
     } else {
       for (let i = 1; i < position - 1; i++) {
@@ -30,36 +30,36 @@ class List {
       }
       newNode.next = currentNode.next;
       currentNode.next = newNode;
-      this.length++;
+      this._length++;
       return true;
     }
   }
 
   removeNode(position) {
     let currentNode = this.head;
-    if (position < 1 || position > this.length) {
+    if (position < 1 || position > this._length) {
       return false;
     } else if (position === 1) {
       this.head = this.head.next;
-      this.length--;
+      this._length--;
       return true;
     } else {
       for (let i = 1; i < position - 1; i++) {
         currentNode = currentNode.next;
       }
       currentNode.next = currentNode.next.next;
-      this.length--;
+      this._length--;
       return true;
     }
   }
 
   printList() {
-    if (this.length === 0) {
+    if (this._length === 0) {
       return "Список пуст";
     }
     let currentNode = this.head;
     let listString = "";
-    for (let i = 1; i <= this.length; i++) {
+    for (let i = 1; i <= this._length; i++) {
       listString += `${currentNode.value}, `;
       currentNode = currentNode.next;
     }
@@ -77,7 +77,7 @@ list.addNode();
 list.addNode();
 list.addNode();
 list.addNode();
-console.log(list.length); //чтобы знать кол-во
+console.log(list._length); //чтобы знать кол-во
 list.addNode(123, 4);
 list.removeNode(1);
 list.removeNode(6);
