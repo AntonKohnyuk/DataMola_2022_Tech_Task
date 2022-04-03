@@ -2,7 +2,7 @@ function add(a, b = undefined) {
   if (b !== undefined) {
     return a + b;
   } else {
-    return function sum(value) {
+    return function (value) {
       return value + a;
     };
   }
@@ -12,7 +12,7 @@ function sub(a, b = undefined) {
   if (b !== undefined) {
     return a - b;
   } else {
-    return function sub(value) {
+    return function (value) {
       return value - a;
     };
   }
@@ -22,7 +22,7 @@ function mul(a, b = undefined) {
   if (b !== undefined) {
     return a * b;
   } else {
-    return function mul(value) {
+    return function (value) {
       return value * a;
     };
   }
@@ -32,7 +32,7 @@ function div(a, b = undefined) {
   if (b !== undefined) {
     return a / b;
   } else {
-    return function div(value) {
+    return function (value) {
       return value / a;
     };
   }
@@ -43,7 +43,7 @@ function pipe() {
   for (let i = 0; i < arguments.length; i++) {
     operations[i] = arguments[i];
   }
-  return function pipe(number) {
+  return function (number) {
     let result = number;
     for (let i = 0; i < operations.length; i++) {
       result = operations[i](result);

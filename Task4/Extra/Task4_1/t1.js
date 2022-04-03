@@ -11,7 +11,7 @@ class List {
     this._length = 1;
   }
 
-  addNode(value = this._length + 1, position = this._length + 1) {
+  addNode(value = this._length + 1, position = this._length) {
     if (position < 1 || position > this._length + 1) {
       return false;
     }
@@ -19,13 +19,13 @@ class List {
     let newNode = new Node(value);
     let currentNode = this.head;
 
-    if (position === 1) {
+    if (position === 0) {
       newNode.next = this.head;
       this.head = newNode;
       this._length++;
       return true;
     } else {
-      for (let i = 1; i < position - 1; i++) {
+      for (let i = 0; i < position - 1; i++) {
         currentNode = currentNode.next;
       }
       newNode.next = currentNode.next;
@@ -35,16 +35,16 @@ class List {
     }
   }
 
-  removeNode(position) {
+  removeNode(position = this._length - 1) {
     let currentNode = this.head;
-    if (position < 1 || position > this._length) {
+    if (position < 0 || position > this._length) {
       return false;
-    } else if (position === 1) {
+    } else if (position === 0) {
       this.head = this.head.next;
       this._length--;
       return true;
     } else {
-      for (let i = 1; i < position - 1; i++) {
+      for (let i = 0; i < position - 1; i++) {
         currentNode = currentNode.next;
       }
       currentNode.next = currentNode.next.next;
@@ -59,7 +59,7 @@ class List {
     }
     let currentNode = this.head;
     let listString = "";
-    for (let i = 1; i <= this._length; i++) {
+    for (let i = 0; i < this._length; i++) {
       listString += `${currentNode.value}, `;
       currentNode = currentNode.next;
     }
@@ -82,4 +82,8 @@ list.addNode(123, 4);
 list.removeNode(1);
 list.removeNode(6);
 console.log(list.removeNode(100));
+list.printList();
+list.removeNode(0);
+list.printList();
+list.removeNode();
 list.printList();
