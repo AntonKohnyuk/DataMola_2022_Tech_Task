@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header id="header">
+        <div id="user">NonAuto</div>
+    </header>
+    <main>
+        <section id="mainPage">
+            <div id="addTweetField"></div>
+            <div id="tweetsField"></div>
+            <div id="filterField">
+                <form id="filters" class="filter">
+                    Date from<br />
+                    <input type="date" name="Date"><br />
+                    Date To<br />
+                    <input type="date" name="Date"><br />
+                    Author name<br />
+                    <input type="text" name="Author name" placeholder="input author name"><br />
+                    Hashtag #<br />
+                    <input type="text" name="# ..." placeholder="input #hashtag"><br />
+                    Text<br />
+                    <input type="text" name="text twit ..." placeholder="input text"><br />
+                    <div class="button-filter">
+                        <button type="reset" class="button">Reset</button>
+                        <button type="submit" class="button">Filter</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section id="tweetPage">
+            <div id="tweet">
+
+            </div>
+            <div id="commentsFields">
+            </div>
+            <div id="addComment">
+
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
