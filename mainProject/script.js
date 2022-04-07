@@ -13,7 +13,7 @@ function setCurrentUser(user) {
 
 function addTweet(text) {
   if (collection1.add(text)) {
-    tweetFeedView.display(collection1.getPage());
+    tweetFeedView.display(collection1.getPage(), collection1);
     return true;
   }
   return false;
@@ -21,7 +21,7 @@ function addTweet(text) {
 
 function editTweet(id, text) {
   if (collection1.edit(id, text)) {
-    tweetFeedView.display(collection1.getPage());
+    tweetFeedView.display(collection1.getPage(), collection1);
     return true;
   }
   return false;
@@ -29,20 +29,23 @@ function editTweet(id, text) {
 
 function removeTweet(id) {
   if (collection1.remove(id)) {
-    tweetFeedView.display(collection1.getPage());
+    tweetFeedView.display(collection1.getPage(), collection1);
     return true;
   }
 }
 
 function getFeed(skip = 0, top = 10, filterConfig = {}) {
-  tweetFeedView.display(collection1.getPage(skip, top, filterConfig));
+  tweetFeedView.display(
+    collection1.getPage(skip, top, filterConfig),
+    collection1
+  );
   filterView.display(filterConfig);
 }
 
 function showTweet(id) {
   let tweet = collection1.get(id);
   if (tweet) {
-    tweetView.display(tweet);
+    tweetView.display(tweet, collection1);
   }
   return true;
 }
@@ -55,7 +58,7 @@ class HeaderView {
   }
 
   display(user) {
-    this.divUser.textContent = user;
+    this.divUser.innerHTML = user;
   }
 }
 
@@ -64,32 +67,39 @@ class TweetFeedView {
     this.tweetsFeild = document.getElementById(containerId);
   }
 
-  display(tweetsCollection) {
-    document.getElementById("mainPage").style.display = "block";
+  display(tweetsCollection, onlyView) {
+    document.getElementById("mainPage").style.display = "flex";
     document.getElementById("tweetPage").style.display = "none";
 
-    if (collection1.user !== undefined) {
-      document.getElementById("addTweetField").innerHTML = `
-      <div class="add-tweet">
-        <form>
-          <input>
-        </form>
-      </div>`;
+    if (onlyView.user) {
+      document.getElementById("addTweetField").style.display = "block";
     }
     let tweets = "";
     tweetsCollection.forEach((tweet) => {
       tweets += `
       <div class="tweet">
         <div class="tweet-head">
+        <div class="icon-name">
+        <span class="iconify user-photo" data-icon="ant-design:user-outlined"></span>
           <div class="name-time">
             <p>${tweet.author}</p>
             <p class="time">${tweet.createdAt}</p>
+          </div></div>
+          <div>
+              <button type="button" class="edit-button">
+                <span id="edit" class="iconify" data-icon="eva:edit-outline"></span>
+              </button>
+              <button type="button" class="delete-button">
+                <span id="delete" class="iconify" data-icon="bx:trash"></span>
+              </button>
           </div>
         </div>
         <div class ="text">
           ${tweet.text}
         </div>
-      </div>`;
+        <div class="flex-center"><span id="comm" class="iconify"
+                data-icon="akar-icons:comment"></span><span>${tweet.comments.length}</span></div>
+      </div></div>`;
     });
     this.tweetsFeild.innerHTML = tweets;
   }
@@ -158,23 +168,37 @@ class TweetView {
     this.tweetPage = document.getElementById(containerId);
   }
 
-  display(tweet) {
+  display(tweet, onlyView) {
     document.getElementById("mainPage").style.display = "none";
     document.getElementById("tweetPage").style.display = "block";
-    this.tweetPage.innerHTML = `<div class="tweet-head">
-    <div class="name-time">
-      <p>${tweet.author}</p>
-      <p class="time">${tweet.createdAt}</p>
-    </div>
-  </div>
-  <div class ="text">
-    ${tweet.text}
-  </div>`;
+    this.tweetPage.innerHTML = `
+    <div class="tweet">
+        <div class="tweet-head">
+        <div class="icon-name">
+        <span class="iconify user-photo" data-icon="ant-design:user-outlined"></span>
+          <div class="name-time">
+            <p>${tweet.author}</p>
+            <p class="time">${tweet.createdAt}</p>
+          </div></div>
+          <div>
+              <button type="button" class="edit-button">
+                <span id="edit" class="iconify" data-icon="eva:edit-outline"></span>
+              </button>
+              <button type="button" class="delete-button">
+                <span id="delete" class="iconify" data-icon="bx:trash"></span>
+              </button>
+          </div>
+        </div>
+        <div class ="text">
+          ${tweet.text}
+        </div></div></div>`;
     let comments = "";
     tweet.comments.forEach((comment) => {
       comments += `
     <div class="tweet">
       <div class="tweet-head">
+      <div class="icon-name">
+      <span id="user-photo" class="iconify" data-icon="ant-design:user-outlined"></span>
         <div class="name-time">
           <p>${comment.author}</p>
           <p class="time">${comment.createdAt}</p>
@@ -183,13 +207,15 @@ class TweetView {
       <div class ="text">
         ${comment.text}
       </div>
-    </div>`;
+    </div></div>`;
     });
-    this.tweetPage.nextElementSibling.innerHTML = comments;
-    if (collection1.user !== undefined) {
-      this.tweetPage.nextElementSibling.nextElementSibling.innerHTML = `<form>
+    this.tweetPage.innerHTML += `<div id="commentsFields">
+    ${comments}
+    </div>`;
+    if (onlyView.user !== undefined) {
+      this.tweetPage.innerHTML = `<div id="addComment"><form>
       <input>
-    </form>`;
+    </form></div>`;
     }
   }
 }
@@ -297,9 +323,7 @@ class TweetsCollection {
 
   getPage(skip = 0, top = 10, filterConfig = {}) {
     function sortFunction(a, b) {
-      let dateA = new Date(a.createdAt);
-      let dateB = new Date(b.createdAt);
-      return dateA > dateB ? 1 : -1;
+      return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;
     }
     this._collectionOfTweets.sort(sortFunction);
     let arrayFilter = [];
@@ -358,9 +382,8 @@ class TweetsCollection {
     if (end > arrayFilter.length) {
       end = arrayFilter.length;
     }
-    let arrayFilterSkip = arrayFilter.slice(skip, end);
 
-    return arrayFilterSkip;
+    return arrayFilter.slice(skip, end);
   }
 
   get(id) {
@@ -383,12 +406,10 @@ class TweetsCollection {
 
   edit(id, text) {
     let i = this._collectionOfTweets.findIndex((tweet) => tweet.id === id);
-    if (i !== -1) {
-      if (this._collectionOfTweets[i].author === this._user) {
-        this._collectionOfTweets[i].text = text;
-        if (Tweet.validate(this._collectionOfTweets[i])) {
-          return true;
-        }
+    if (i !== -1 && this._collectionOfTweets[i].author === this._user) {
+      this._collectionOfTweets[i].text = text;
+      if (Tweet.validate(this._collectionOfTweets[i])) {
+        return true;
       }
     }
     return false;
@@ -409,7 +430,6 @@ class TweetsCollection {
     let i = this._collectionOfTweets.findIndex((tweet) => tweet.id === id);
 
     if (i === -1) {
-      console.log(i);
       return false;
     }
 
@@ -448,9 +468,9 @@ let identifier = arrayOfTweets.length;
 
 let collection1 = new TweetsCollection(arrayOfTweets);
 
-const headerView = new HeaderView("user");
+const headerView = new HeaderView("username");
 
-const tweetView = new TweetView("tweet");
+const tweetView = new TweetView("tweetf");
 
 const tweetFeedView = new TweetFeedView("tweetsField");
 
