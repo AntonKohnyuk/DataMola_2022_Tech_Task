@@ -12,7 +12,7 @@ function createList(titel, list) {
 function listLogic(node, fontSize) {
   let listHtml = "";
   listHtml += `<li style="font-size: ${fontSize}rem">${node.value}`;
-  if (node.children.lenght !== 0) {
+  if (node.children && node.children.lenght !== 0) {
     listHtml += `<ul>`;
     node.children.forEach((child) => {
       listHtml += listLogic(child, fontSize * 0.9);

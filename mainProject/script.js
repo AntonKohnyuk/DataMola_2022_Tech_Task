@@ -32,6 +32,7 @@ function removeTweet(id) {
     tweetFeedView.display(collection1.getPage(), collection1);
     return true;
   }
+  return false;
 }
 
 function getFeed(skip = 0, top = 10, filterConfig = {}) {
@@ -46,8 +47,9 @@ function showTweet(id) {
   let tweet = collection1.get(id);
   if (tweet) {
     tweetView.display(tweet, collection1);
+    return true;
   }
-  return true;
+  return false;
 }
 
 //классы view
@@ -74,8 +76,18 @@ class TweetFeedView {
     if (onlyView.user) {
       document.getElementById("addTweetField").style.display = "block";
     }
+
     let tweets = "";
     tweetsCollection.forEach((tweet) => {
+      let textOfTweet = tweet.text.split(" ");
+      let text = textOfTweet.reduce(function (tweetText, aWord) {
+        if (aWord.includes("#")) {
+          return tweetText + " " + `<span class="hashtag">${aWord}</span>`;
+        } else {
+          return tweetText + " " + aWord;
+        }
+      }, "");
+
       tweets += `
       <div class="tweet">
         <div class="tweet-head">
@@ -95,10 +107,12 @@ class TweetFeedView {
           </div>
         </div>
         <div class ="text">
-          ${tweet.text}
+          ${text.split()}
         </div>
         <div class="flex-center"><span id="comm" class="iconify"
-                data-icon="akar-icons:comment"></span><span>${tweet.comments.length}</span></div>
+                data-icon="akar-icons:comment"></span><span>${
+                  tweet.comments.length
+                }</span></div>
       </div></div>`;
     });
     this.tweetsFeild.innerHTML = tweets;
@@ -170,7 +184,7 @@ class TweetView {
 
   display(tweet, onlyView) {
     document.getElementById("mainPage").style.display = "none";
-    document.getElementById("tweetPage").style.display = "block";
+    document.getElementById("tweetPage").style.display = "flex";
     this.tweetPage.innerHTML = `
     <div class="tweet">
         <div class="tweet-head">
@@ -192,10 +206,11 @@ class TweetView {
         <div class ="text">
           ${tweet.text}
         </div></div></div>`;
-    let comments = "";
-    tweet.comments.forEach((comment) => {
-      comments += `
-    <div class="tweet">
+    if (tweet.comments && tweet.comments.length !== 0) {
+      let comments = "";
+      tweet.comments.forEach((comment) => {
+        comments += `
+    <div class="comment">
       <div class="tweet-head">
       <div class="icon-name">
       <span id="user-photo" class="iconify" data-icon="ant-design:user-outlined"></span>
@@ -208,14 +223,20 @@ class TweetView {
         ${comment.text}
       </div>
     </div></div>`;
-    });
-    this.tweetPage.innerHTML += `<div id="commentsFields">
+      });
+      this.tweetPage.innerHTML += `<div class="commentsFields">
     ${comments}
     </div>`;
-    if (onlyView.user !== undefined) {
-      this.tweetPage.innerHTML = `<div id="addComment"><form>
-      <input>
-    </form></div>`;
+    }
+    if (onlyView.user) {
+      this.tweetPage.innerHTML += `
+    <div class="tweet-form">
+    <form class="write-tweet">
+        <textarea name="message" placeholder="Write your comment here!" maxlength="280"
+            class="style"></textarea>
+        <button type="submit" class="button">Share</button>
+    </form>
+    </div>`;
     }
   }
 }
