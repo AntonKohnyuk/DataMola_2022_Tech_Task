@@ -1,0 +1,15 @@
+table{
+    border: 1px solid grey;
+}
+thead{
+    border: 2px solid black;
+}
+
+#thatday{
+    background-color: yellow;
+    border: 1px solid grey;
+}
+
+td.body{
+    border: 1px solid grey;
+}
