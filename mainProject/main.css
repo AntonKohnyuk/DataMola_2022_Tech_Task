@@ -111,7 +111,6 @@ div.main
     border-radius: 0.5rem;
     box-shadow: 0 6px 4px -4px #6A6666;
     background-color: white;
-    display: none;
     margin: 1rem 2rem;
     width: 100%;
     max-width: 1920px;
@@ -236,11 +235,14 @@ input {
     max-height: 3rem;
 }
 
-button:hover,
-.twit:hover {
+button:hover {
     opacity: 0.7;
     transition: 0.25s;
     cursor: pointer;
+}
+
+.tweet:hover{
+    cursor: pointer;  
 }
 
 .button-filter {
@@ -259,6 +261,10 @@ form.filter {
 
 #filterField{
     padding: 1rem 2rem;
+}
+
+.filterField{
+    padding: 1rem 2rem; 
 }
 
 input {
@@ -301,6 +307,7 @@ input {
     flex-direction: column;
     align-items: center;
     width: 80%;
+    height: 100%;
     max-height: calc(100% - (var(--header-height) + var(--foter-height)));
     box-sizing: border-box;
 
@@ -340,4 +347,72 @@ textarea.style {
 
 span.hashtag{
     color: #FFA3B8;
+}
+
+#username{
+    padding: 0.5rem;
+}
+
+.log-field{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 4px -4px #6A6666;
+    background-color: #FFE5EE;
+    display: flex;
+    width :30%;
+    height: 55%;
+    padding: inherit;
+}
+#log-in{
+    display: none;
+    padding: var(--default-offset);
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: var(--default-offset);
+}
+
+#regestration{
+    display: none;
+    padding: var(--default-offset);
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: var(--default-offset);
+}
+
+#error-page{
+    display: none;
+}
+
+.logo{
+    margin: var(--default-offset);
+}
+
+.inputField{
+margin: var(--default-offset);
+}
+
+#log-button-out{
+    display: none;
+}
+
+a:hover{
+    opacity: 0.9;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.to-reg-login{
+    color: #FFA3B8;
+    font-weight: bold;
+    text-decoration: underline;
 }

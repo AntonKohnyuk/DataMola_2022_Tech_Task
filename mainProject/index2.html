@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="main.css">
+    <title>WAC-WAC</title>
+</head>
+
+<body>
+    <header id="header">
+        <section class="header">
+            <a onclick="tweetsController.getFeed()"><img alt="WAC-WAC" src="images/Logo.svg" alt="Logo"></a>
+            <div class="user">
+                <span class="iconify" data-icon="carbon:user-avatar" data-width="46" data-height="46"></span>
+                <span id="username">Guest</span>
+                <button class="header-button" id="log-button-in" onclick="tweetsController.logIn()">
+                    <span class="iconify" id="login-icon" data-icon="uil:exit" data-width="46" data-height="46"
+                        data-flip="horizontal">
+                    </span>
+                </button>
+                <button class="header-button" id="log-button-out" onclick="tweetsController.setCurrentUser()">
+                    <span class="iconify" id="logout-icon" data-icon="uil:exit" data-width="46" data-height="46"></span>
+                </button>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <section id="mainPage">
+
+        </section>
+    </main>
+
+    <footer>
+        <p class="item-of-footer"><b>WAC-WAC</b></p>
+        <div class="name-mail">
+            <p class="item-of-footer">devolped by Anton kohnyuk</p>
+            <p class="item-of-footer">anton.kohnyuk@mail.ru</p>
+        </div>
+        <p class="item-of-footer">version 1.0 ( ast update <time datetime="2022">20.02.2022</time>)</p>
+    </footer>
+
+    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <script src="class.js"></script>
+</body>
+
+</html>
